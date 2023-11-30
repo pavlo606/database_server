@@ -48,7 +48,7 @@ class Drivers(db.Model, IDto):
         }
 
     @staticmethod
-    def create_from_dto(dto_dict: Dict[str, Any]) -> Drivers:
+    def create_from_dto(dto_dict: Dict[str, Any]) -> tuple[Drivers, list[int]]:
         """
         Creates domain object from DTO
         :param dto_dict: DTO object
@@ -57,4 +57,4 @@ class Drivers(db.Model, IDto):
         obj = Drivers(name=dto_dict.get("name"),
                     age=dto_dict.get("age"),
                     experience=dto_dict.get("experience"))
-        return obj
+        return obj, dto_dict.get("routes")

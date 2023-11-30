@@ -23,7 +23,7 @@ class SubRoutes(db.Model, IDto):
     routes = db.relationship('Routes', secondary=routes_has_subroutes, backref='subroutes_routes')
 
     def __repr__(self) -> str:
-        return f"SubRoutes({self.id}, {self.distance}, {self.price}, {self.milage}, '{self.producer}', {self.route_id})"
+        return f"SubRoutes({self.id}, {self.distance}, {self.price}, {self.Start_BusStop_id}, '{self.End_BusStop_id}')"
     
     def get_routes(self) -> Dict[str, Any]:
         """

@@ -3,6 +3,7 @@ from http import HTTPStatus
 from flask import Blueprint, jsonify, Response, request, make_response
 
 from my_project.auth.controller import routes_controller
+from my_project.auth.service import subroutes_service
 from my_project.auth.domain import Routes
 
 routes_bp = Blueprint('routes', __name__, url_prefix='/routes')
@@ -23,7 +24,14 @@ def create_route() -> Response:
     :return: Response object
     """
     content = request.get_json()
-    route = Routes.create_from_dto(content)
+    route, subroutes = Routes.create_from_dto(content)
+    route.stops = len(subroutes)
+    total_distance = 0
+    for i in subroutes:
+        subroute = subroutes_service.find_by_id(i)
+        total_distance += subroute.distance
+        route.subroutes.append(subroute)
+    route.total_distance = total_distance
     routes_controller.create(route)
     return make_response(jsonify(route.put_into_dto()), HTTPStatus.CREATED)
 
@@ -80,7 +88,7 @@ def update_route(route_id: int) -> Response:
     :return: Response object
     """
     content = request.get_json()
-    route = Routes.create_from_dto(content)
+    route, _ = Routes.create_from_dto(content)
     routes_controller.update(route_id, route)
     return make_response("Route updated", HTTPStatus.OK)
 

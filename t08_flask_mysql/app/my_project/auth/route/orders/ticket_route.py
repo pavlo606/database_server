@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, jsonify, Response, request, make_response
 
-from my_project.auth.controller import ticket_controller
+from my_project.auth.controller import ticket_controller, routes_controller
 from my_project.auth.domain import Ticket
 
 ticket_bp = Blueprint('ticket', __name__, url_prefix='/ticket')
@@ -24,6 +24,20 @@ def create_ticket() -> Response:
     """
     content = request.get_json()
     ticket = Ticket.create_from_dto(content)
+    subroutes = routes_controller.find_by_id_with_subroutes(ticket.Route_id)["subroutes"]
+    total_price = 0
+    is_ticket_route = False
+    for subroute in subroutes:
+        if subroute["Start_BusStop_id"] == ticket.Start_BusStop_id:
+            is_ticket_route = True
+        elif subroute["Start_BusStop_id"] == ticket.End_BusStop_id:
+            is_ticket_route = False
+        if is_ticket_route:
+            print("yes")
+            print(subroute["Start_BusStop_id"])
+            print(int(subroute["price"]))
+            total_price += int(subroute["price"])
+    ticket.price = total_price
     ticket_controller.create(ticket)
     return make_response(jsonify(ticket.put_into_dto()), HTTPStatus.CREATED)
 

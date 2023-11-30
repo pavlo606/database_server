@@ -19,7 +19,6 @@ class GeneralDAO(ABC):
         Gets all objects from table.
         :return: list of all objects
         """
-        print(self._domain_type)
         return self._session.query(self._domain_type).all()
 
     def find_by_id(self, key: int) -> object:

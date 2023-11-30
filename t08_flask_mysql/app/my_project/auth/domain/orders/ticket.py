@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Dict, Any
+from datetime import datetime
 
 from my_project import db
 from my_project.auth.domain.i_dto import IDto
@@ -24,7 +25,7 @@ class Ticket(db.Model, IDto):
     end_busstop = db.relationship('BusStops', backref='ticket_end', foreign_keys=[End_BusStop_id])
 
     def __repr__(self) -> str:
-        return f"Ticket({self.id}, {self.distance}, {self.price}, {self.milage}, '{self.producer}', {self.route_id})"
+        return f"Ticket({self.id}, {self.date}, {self.price}, {self.price}, '{self.seat_place}', {self.Passanger_id})"
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -51,7 +52,7 @@ class Ticket(db.Model, IDto):
         :param dto_dict: DTO object
         :return: Domain object
         """
-        obj = Ticket(date=dto_dict.get("date"),
+        obj = Ticket(date=datetime.now(),
                     price=dto_dict.get("price"),
                     seat_place=dto_dict.get("seat_place"),
                     Passanger_id=dto_dict.get("Passanger_id"),

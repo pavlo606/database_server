@@ -33,7 +33,7 @@ class Routes(db.Model, IDto):
     drivers = db.relationship('Drivers', secondary=drivers_has_routes, backref='routes_drivers')
 
     def __repr__(self) -> str:
-        return f"Routes({self.id}, {self.age}, {self.capacity}, {self.milage}, '{self.producer}', {self.route_id})"
+        return f"Routes({self.id}, {self.stops}, {self.total_distance}, {self.Start_BusStop_id}, '{self.End_BusStop_id}')"
 
     def get_drivers(self) -> Dict[str, Any]:
         """
@@ -86,7 +86,7 @@ class Routes(db.Model, IDto):
         }
 
     @staticmethod
-    def create_from_dto(dto_dict: Dict[str, Any]) -> Routes:
+    def create_from_dto(dto_dict: Dict[str, Any]) -> tuple[Routes, list[int]]:
         """
         Creates domain object from DTO
         :param dto_dict: DTO object
@@ -96,4 +96,4 @@ class Routes(db.Model, IDto):
                     total_distance=dto_dict.get("total_distance"),
                     Start_BusStop_id=dto_dict.get("Start_BusStop_id"),
                     End_BusStop_id=dto_dict.get("End_BusStop_id"))
-        return obj
+        return obj, dto_dict.get("Subroutes")
