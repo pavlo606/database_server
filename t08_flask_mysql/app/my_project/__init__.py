@@ -18,7 +18,7 @@ MYSQL_ROOT_PASSWORD = "MYSQL_ROOT_PASSWORD"
 # Database
 db = SQLAlchemy()
 
-todos = {"fuck": "fucking"}
+todos = {}
 
 
 def create_app(app_config: Dict[str, Any], additional_config: Dict[str, Any]) -> Flask:

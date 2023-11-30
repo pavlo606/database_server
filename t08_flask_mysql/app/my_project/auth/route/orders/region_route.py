@@ -28,15 +28,6 @@ def create_region() -> Response:
     return make_response(jsonify(region.put_into_dto()), HTTPStatus.CREATED)
 
 
-@region_bp.get('/city')
-def get_all_regions_city() -> Response:
-    """
-    Gets all objects from table using Service layer.
-    :return: Response object
-    """
-    return make_response(jsonify(region_controller.find_all_cities()), HTTPStatus.OK)
-
-
 @region_bp.get('/<int:region_id>')
 def get_region(region_id: int) -> Response:
     """

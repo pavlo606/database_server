@@ -5,20 +5,18 @@ from my_project import db
 from my_project.auth.domain.i_dto import IDto
 
 
-class City(db.Model, IDto):
+class Passangers(db.Model, IDto):
     """
     Model declaration for Data Mapper.
     """
-    __tablename__ = "city"
+    __tablename__ = "passangers"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name: str = db.Column(db.String(45))
-    Region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
-
-    busstops = db.relationship('BusStops', backref='city')
+    phone_number: str = db.Column(db.String(13))
 
     def __repr__(self) -> str:
-        return f"City({self.id}, '{self.name}', {self.Region_id})"
+        return f"Passangers({self.id}, '{self.name}', '{self.phone_number}')"
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -28,17 +26,16 @@ class City(db.Model, IDto):
         return {
             "id": self.id,
             "name": self.name,
-            "region_id": self.Region_id,
-            "busstops": list(map(lambda a: a.put_into_dto(), self.busstops)),
+            "phone_number": self.phone_number,
         }
 
     @staticmethod
-    def create_from_dto(dto_dict: Dict[str, Any]) -> City:
+    def create_from_dto(dto_dict: Dict[str, Any]) -> Passangers:
         """
         Creates domain object from DTO
         :param dto_dict: DTO object
         :return: Domain object
         """
-        obj = City(name=dto_dict.get("name"),
-                    Region_id=dto_dict.get("region_id"))
+        obj = Passangers(name=dto_dict.get("name"),
+                    phone_number=dto_dict.get("phone_number"))
         return obj

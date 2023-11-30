@@ -14,22 +14,12 @@ class Region(db.Model, IDto):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name: str = db.Column(db.String(45))
+    
     cities = db.relationship('City', backref='region')
 
     def __repr__(self) -> str:
         return f"Region({self.id}, '{self.name}')"
 
-    def put_into_dto_with_cities(self) -> Dict[str, Any]:
-        """
-        Puts domain object into DTO without relationship
-        :return: DTO object as dictionary
-        """
-        return {
-            "id": self.id,
-            "name": self.name,
-            "cities": list(map(lambda a: a.put_into_dto(), self.cities)),
-        }
-    
     def put_into_dto(self) -> Dict[str, Any]:
         """
         Puts domain object into DTO without relationship
@@ -38,6 +28,7 @@ class Region(db.Model, IDto):
         return {
             "id": self.id,
             "name": self.name,
+            "cities": list(map(lambda a: a.put_into_dto(), self.cities)),
         }
 
     @staticmethod
