@@ -15,6 +15,14 @@ def get_all_subroutes() -> Response:
     """
     return make_response(jsonify(subroutes_controller.find_all()), HTTPStatus.OK)
 
+@subroutes_bp.get('/routes')
+def get_all_subroutes_routes() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(subroutes_controller.find_all_routes()), HTTPStatus.OK)
+
 
 @subroutes_bp.post('')
 def create_subroute() -> Response:
@@ -35,6 +43,14 @@ def get_subroute(subroute_id: int) -> Response:
     :return: Response object
     """
     return make_response(jsonify(subroutes_controller.find_by_id(subroute_id)), HTTPStatus.OK)
+
+@subroutes_bp.get('/routes/<int:subroute_id>')
+def get_subroute_route(subroute_id: int) -> Response:
+    """
+    Gets city_id by ID.
+    :return: Response object
+    """
+    return make_response(jsonify(subroutes_controller.find_by_id_with_routes(subroute_id)), HTTPStatus.OK)
 
 
 @subroutes_bp.put('/<int:subroute_id>')

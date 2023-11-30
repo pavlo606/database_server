@@ -15,6 +15,8 @@ class Passangers(db.Model, IDto):
     name: str = db.Column(db.String(45))
     phone_number: str = db.Column(db.String(13))
 
+    tickets = db.relationship('Ticket', backref='passangers')
+
     def __repr__(self) -> str:
         return f"Passangers({self.id}, '{self.name}', '{self.phone_number}')"
 
@@ -27,6 +29,7 @@ class Passangers(db.Model, IDto):
             "id": self.id,
             "name": self.name,
             "phone_number": self.phone_number,
+            "tickets": list(map(lambda a: a.put_into_dto(), self.tickets)),
         }
 
     @staticmethod

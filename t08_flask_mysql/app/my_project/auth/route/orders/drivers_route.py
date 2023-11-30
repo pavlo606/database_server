@@ -16,6 +16,15 @@ def get_all_drivers() -> Response:
     return make_response(jsonify(drivers_controller.find_all()), HTTPStatus.OK)
 
 
+@drivers_bp.get('/routes')
+def get_all_routes() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(drivers_controller.find_all_routes()), HTTPStatus.OK)
+
+
 @drivers_bp.post('')
 def create_driver() -> Response:
     """
@@ -35,6 +44,15 @@ def get_driver(driver_id: int) -> Response:
     :return: Response object
     """
     return make_response(jsonify(drivers_controller.find_by_id(driver_id)), HTTPStatus.OK)
+
+
+@drivers_bp.get('/routes/<int:driver_id>')
+def get_route(driver_id: int) -> Response:
+    """
+    Gets city_id by ID.
+    :return: Response object
+    """
+    return make_response(jsonify(drivers_controller.find_by_id_with_routes(driver_id)), HTTPStatus.OK)
 
 
 @drivers_bp.put('/<int:driver_id>')

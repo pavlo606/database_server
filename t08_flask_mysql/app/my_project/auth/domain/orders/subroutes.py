@@ -3,6 +3,7 @@ from typing import Dict, Any
 
 from my_project import db
 from my_project.auth.domain.i_dto import IDto
+from my_project.auth.domain.orders.routes import routes_has_subroutes
 
 
 class SubRoutes(db.Model, IDto):
@@ -17,8 +18,28 @@ class SubRoutes(db.Model, IDto):
     Start_BusStop_id = db.Column(db.Integer, db.ForeignKey('busstops.id'))
     End_BusStop_id = db.Column(db.Integer, db.ForeignKey('busstops.id'))
 
+    start_busstop = db.relationship('BusStops', backref='subroutes_start', foreign_keys=[Start_BusStop_id])
+    end_busstop = db.relationship('BusStops', backref='subroutes_end', foreign_keys=[End_BusStop_id])
+    routes = db.relationship('Routes', secondary=routes_has_subroutes, backref='subroutes_routes')
+
     def __repr__(self) -> str:
         return f"SubRoutes({self.id}, {self.distance}, {self.price}, {self.milage}, '{self.producer}', {self.route_id})"
+    
+    def get_routes(self) -> Dict[str, Any]:
+        """
+        Puts domain object into DTO without relationship
+        :return: DTO object as dictionary
+        """
+        return {
+            "id": self.id,
+            "distance": self.distance,
+            "price": self.price,
+            "Start_BusStop_id": self.Start_BusStop_id,
+            "End_BusStop_id": self.End_BusStop_id,
+            "start_busstop":self.start_busstop.put_into_dto(),
+            "end_busstop":self.end_busstop.put_into_dto(),
+            "routes": list(map(lambda a: a.put_into_dto(), self.routes)),
+        }
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -31,6 +52,8 @@ class SubRoutes(db.Model, IDto):
             "price": self.price,
             "Start_BusStop_id": self.Start_BusStop_id,
             "End_BusStop_id": self.End_BusStop_id,
+            "start_busstop":self.start_busstop.put_into_dto(),
+            "end_busstop":self.end_busstop.put_into_dto(),
         }
 
     @staticmethod

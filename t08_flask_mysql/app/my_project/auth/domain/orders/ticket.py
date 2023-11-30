@@ -19,6 +19,9 @@ class Ticket(db.Model, IDto):
     Route_id = db.Column(db.Integer, db.ForeignKey('routes.id'))
     Start_BusStop_id = db.Column(db.Integer, db.ForeignKey('busstops.id'))
     End_BusStop_id = db.Column(db.Integer, db.ForeignKey('busstops.id'))
+    
+    start_busstop = db.relationship('BusStops', backref='ticket_start', foreign_keys=[Start_BusStop_id])
+    end_busstop = db.relationship('BusStops', backref='ticket_end', foreign_keys=[End_BusStop_id])
 
     def __repr__(self) -> str:
         return f"Ticket({self.id}, {self.distance}, {self.price}, {self.milage}, '{self.producer}', {self.route_id})"
@@ -37,6 +40,8 @@ class Ticket(db.Model, IDto):
             "Route_id": self.Route_id,
             "Start_BusStop_id": self.Start_BusStop_id,
             "End_BusStop_id": self.End_BusStop_id,
+            "start_busstop":self.start_busstop.put_into_dto(),
+            "end_busstop":self.end_busstop.put_into_dto(),
         }
 
     @staticmethod

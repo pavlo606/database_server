@@ -28,6 +28,24 @@ def create_route() -> Response:
     return make_response(jsonify(route.put_into_dto()), HTTPStatus.CREATED)
 
 
+@routes_bp.get('/subroutes')
+def get_all_routes_subroutes() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(routes_controller.find_all_subroutes()), HTTPStatus.OK)
+
+
+@routes_bp.get('/drivers')
+def get_all_routes_drivers() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(routes_controller.find_all_drivers()), HTTPStatus.OK)
+
+
 @routes_bp.get('/<int:route_id>')
 def get_route(route_id: int) -> Response:
     """
@@ -35,6 +53,24 @@ def get_route(route_id: int) -> Response:
     :return: Response object
     """
     return make_response(jsonify(routes_controller.find_by_id(route_id)), HTTPStatus.OK)
+
+
+@routes_bp.get('/subroutes/<int:route_id>')
+def get_routes_subroutes(route_id: int) -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(routes_controller.find_by_id_with_subroutes(route_id)), HTTPStatus.OK)
+
+
+@routes_bp.get('/drivers/<int:route_id>')
+def get_routes_drivers(route_id: int) -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(routes_controller.find_by_id_with_drivers(route_id)), HTTPStatus.OK)
 
 
 @routes_bp.put('/<int:route_id>')
