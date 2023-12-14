@@ -7,3 +7,6 @@ class PassangersService(GeneralService):
     Realisation of Client service.
     """
     _dao = passangers_dao
+
+    def insert_passanger_data(self):
+        return self._dao.insert_passanger_data()

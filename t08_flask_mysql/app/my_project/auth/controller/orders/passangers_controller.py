@@ -9,3 +9,6 @@ class PassangersController(GeneralController):
     Realisation of ClientType controller.
     """
     _service = passangers_service
+
+    def insert_passanger_data(self):
+        return self._service.insert_passanger_data()

@@ -19,6 +19,8 @@ def register_routes(app: Flask) -> None:
     from .orders.routes_route import routes_bp
     from .orders.subroute_route import subroutes_bp
     from .orders.ticket_route import ticket_bp
+    from .orders.bus_producer_route import bus_producer_bp
+    from .orders.route_logs_route import route_logs_bp
 
     app.register_blueprint(region_bp)
     app.register_blueprint(city_bp)
@@ -29,3 +31,5 @@ def register_routes(app: Flask) -> None:
     app.register_blueprint(routes_bp)
     app.register_blueprint(subroutes_bp)
     app.register_blueprint(ticket_bp)
+    app.register_blueprint(bus_producer_bp)
+    app.register_blueprint(route_logs_bp)

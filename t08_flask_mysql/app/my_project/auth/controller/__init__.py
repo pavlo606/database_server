@@ -7,6 +7,8 @@ from .orders.buses_controller import BusesController
 from .orders.routes_controller import RoutesController
 from .orders.subroutes_controller import SubRoutesController
 from .orders.ticket_controller import TicketController
+from .orders.bus_producer_controller import BusProducerController
+from .orders.route_logs_controller import RouteLogsController
 
 region_controller = RegionController()
 city_controller = CityController()
@@ -17,3 +19,5 @@ buses_controller = BusesController()
 routes_controller = RoutesController()
 subroutes_controller = SubRoutesController()
 ticket_controller = TicketController()
+bus_producer_controller = BusProducerController()
+route_logs_controller = RouteLogsController()

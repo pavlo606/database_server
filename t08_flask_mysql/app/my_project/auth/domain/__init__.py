@@ -9,3 +9,5 @@ from my_project.auth.domain.orders.buses import Buses
 from my_project.auth.domain.orders.routes import Routes
 from my_project.auth.domain.orders.subroutes import SubRoutes
 from my_project.auth.domain.orders.ticket import Ticket
+from my_project.auth.domain.orders.bus_producer import BusProducer
+from my_project.auth.domain.orders.route_logs import RouteLogs

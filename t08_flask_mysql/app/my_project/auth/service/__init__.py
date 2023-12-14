@@ -8,6 +8,8 @@ from .orders.buses_service import BusesService
 from .orders.routes_srvice import RoutesService
 from .orders.subroutes_service import SubRoutesService
 from .orders.ticket_service import TicketService
+from .orders.bus_producer_service import BusProducerService
+from .orders.route_logs_service import RouteLogsService
 
 region_service = RegionService()
 city_service = CityService()
@@ -18,3 +20,5 @@ buses_service = BusesService()
 routes_srvice = RoutesService()
 subroutes_service = SubRoutesService()
 ticket_service = TicketService()
+bus_producer_service = BusProducerService()
+route_logs_service = RouteLogsService()

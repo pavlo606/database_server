@@ -15,8 +15,10 @@ class Buses(db.Model, IDto):
     age = db.Column(db.Integer)
     capacity = db.Column(db.Integer)
     milage = db.Column(db.Integer)
-    producer: str = db.Column(db.String(45))
+    producer_id = db.Column(db.Integer)
     route_id = db.Column(db.Integer, db.ForeignKey('routes.id'))
+
+    # bus_producer = db.relationship('bus_producer', backref='buses')
 
     def __repr__(self) -> str:
         return f"Buses({self.id}, {self.age}, {self.capacity}, {self.milage}, '{self.producer}', {self.route_id})"
@@ -31,8 +33,9 @@ class Buses(db.Model, IDto):
             "age": self.age,
             "capacity": self.capacity,
             "milage": self.milage,
-            "producer": self.producer,
-            "route_id": self.route_id,
+            "producer_id": self.producer_id,
+            "Route_id": self.route_id,
+            # "bus_producer": list(map(lambda a: a.put_into_dto(), self.bus_producer)),
         }
 
     @staticmethod
@@ -45,6 +48,6 @@ class Buses(db.Model, IDto):
         obj = Buses(age=dto_dict.get("age"),
                     capacity=dto_dict.get("capacity"),
                     milage=dto_dict.get("milage"),
-                    producer=dto_dict.get("producer"),
+                    producer_id=dto_dict.get("producer_id"),
                     route_id=dto_dict.get("route_id"))
         return obj

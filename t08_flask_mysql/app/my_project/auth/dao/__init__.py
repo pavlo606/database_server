@@ -8,6 +8,8 @@ from .orders.buses_dao import BusesDAO
 from .orders.routes_dao import RoutesDAO
 from .orders.subroutes_dao import SubRoutesDAO
 from .orders.ticket_dao import TicketDAO
+from .orders.bus_producer_dao import BusProducerDAO
+from .orders.route_logs_dao import RouteLogsDAO
 
 region_dao = RegionDAO()
 city_dao = CityDAO()
@@ -18,3 +20,5 @@ buses_dao = BusesDAO()
 routes_dao = RoutesDAO()
 subroutes_dao = SubRoutesDAO()
 ticket_dao = TicketDAO()
+bus_producer_dao = BusProducerDAO()
+route_logs_dao = RouteLogsDAO()
