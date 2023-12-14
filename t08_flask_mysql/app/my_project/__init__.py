@@ -32,6 +32,7 @@ def create_app(app_config: Dict[str, Any], additional_config: Dict[str, Any]) ->
     app = Flask(__name__)
     app.config["SECRET_KEY"] = secrets.token_hex(16)
     app.config = {**app.config, **app_config}
+    app.json.sort_keys = False
 
     _init_db(app)
     register_routes(app)
@@ -54,7 +55,7 @@ def _init_swagger(app: Flask) -> None:
         @staticmethod
         def put(todo_id):
             todos[todo_id] = todo_id
-            return todos, HTTPStatus.CREATED    
+            return todos, HTTPStatus.CREATED
 
     @app.route("/hi")
     def hello_world():

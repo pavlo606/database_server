@@ -27,6 +27,17 @@ def create_bus() -> Response:
     buses_controller.create(bus)
     return make_response(jsonify(bus.put_into_dto()), HTTPStatus.CREATED)
 
+@buses_bp.post('/insert_procedure')
+def create_bus_by_procedure() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    content = request.get_json()
+    bus = Buses.create_from_dto(content)
+    buses_controller.procedure_insert_bus(bus.age, bus.capacity, bus.milage, bus.producer_id, bus.route_id)
+    return make_response(jsonify(bus.put_into_dto()), HTTPStatus.CREATED)
+
 
 @buses_bp.get('/<int:bus_id>')
 def get_bus(bus_id: int) -> Response:

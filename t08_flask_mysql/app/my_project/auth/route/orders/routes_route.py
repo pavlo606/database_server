@@ -36,6 +36,16 @@ def create_route() -> Response:
     return make_response(jsonify(route.put_into_dto()), HTTPStatus.CREATED)
 
 
+@routes_bp.get('/<int:route_id>/driver_name/<string:driver_name>')
+def insert_routes_has_drivers(route_id, driver_name) -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    routes_controller.insert_routes_has_drivers_dependency(driver_name, route_id)
+    return make_response("Successfuly inserted into routes_has_drivers", HTTPStatus.OK)
+
+
 @routes_bp.get('/subroutes')
 def get_all_routes_subroutes() -> Response:
     """

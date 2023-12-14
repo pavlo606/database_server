@@ -13,6 +13,9 @@ class RoutesController(GeneralController):
     """
     _service = routes_srvice
 
+    def insert_routes_has_drivers_dependency(self, driver_name, route_id):
+        return self._service.insert_routes_has_drivers_dependency(driver_name, route_id)
+
     def find_all_subroutes(self) -> List[object]:
         """
         Gets all objects from table using Service layer as DTO objects.

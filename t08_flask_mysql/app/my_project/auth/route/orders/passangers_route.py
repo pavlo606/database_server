@@ -27,6 +27,14 @@ def create_passanger() -> Response:
     passangers_controller.create(passanger)
     return make_response(jsonify(passanger.put_into_dto()), HTTPStatus.CREATED)
 
+@passangers_bp.get('/insert_data')
+def insert_passangers() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    passangers_controller.insert_passanger_data()
+    return make_response("Successfuly inserted data into passangers", HTTPStatus.CREATED)
 
 @passangers_bp.get('/<int:passanger_id>')
 def get_passanger(passanger_id: int) -> Response:
