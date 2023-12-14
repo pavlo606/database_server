@@ -1,18 +1,22 @@
+# Docker DB
+../../../../Users/Pavelchak/Desktop/DataBase/
+
+# SQLite
+*.sqlite
+
+# PyTest
+.pytest_cache/
+__pycache__/
+pytest.ini
+
 # virtualenv
-.venv
-venv/
-ENV/
+app/venv/
 
 # IntelliJ
 /out/
 .idea/
 
-# VS Code
-.vscode/
-*.code-workspace
-
 # Byte-compiled / optimized / DLL files
-__pycache__/
 v2_indexcache/
 *.pydevinfo
 *.py[cod]
@@ -59,5 +63,3 @@ coverage.xml
 # PyBuilder
 target/
 
-# SQLite
-*.sqlite
